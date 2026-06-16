@@ -132,10 +132,10 @@ class ApiService {
     return Record.fromJson(data);
   }
 
-  // 创建记录（接收 Record 对象）
-  Future<Record> createRecord(Record record) async {
-    final data = await _post('/api/records', record.toJson());
-    return Record.fromJson(data);
+  // 创建记录（接收 Map）
+  Future<Record> createRecord(Map<String, dynamic> data) async {
+    final resp = await _post('/api/records', data);
+    return Record.fromJson(resp);
   }
 
   // 更新记录（接收 Map）

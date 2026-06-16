@@ -47,8 +47,8 @@ class _RecordFormPageState extends State<RecordFormPage> {
 
   Future<void> _loadRecord() async {
     final records = context.read<RecordsProvider>().records;
-    final record = records.firstWhere(
-      (r) => r.id == widget.editId,
+    final Record? record = records.cast<Record?>().firstWhere(
+      (r) => r?.id == widget.editId,
       orElse: () => null,
     );
     if (record == null) return;
