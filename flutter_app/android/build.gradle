@@ -7,8 +7,6 @@ allprojects {
     }
 }
 
-repositoriesMode.set(RepositoriesMode.PREFER_PROJECT)
-
 
 rootProject.buildDir = "../build"
 subprojects {

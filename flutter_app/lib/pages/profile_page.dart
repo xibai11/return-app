@@ -34,7 +34,7 @@ class ProfilePage extends StatelessWidget {
                       radius: 32,
                       backgroundColor: const Color(Config.primaryColor).withOpacity(0.1),
                       child: Text(
-                        (user?['name'] ?? user?['username'] ?? 'U')[0].toUpperCase(),
+                        (user?.name ?? user?.username ?? 'U')[0].toUpperCase(),
                         style: const TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -48,7 +48,7 @@ class ProfilePage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            user?['name'] ?? user?['username'] ?? '用户',
+                            user?.name ?? user?.username ?? '用户',
                             style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -57,13 +57,13 @@ class ProfilePage extends StatelessWidget {
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            '@${user?['username'] ?? '-'}',
+                            '@${user?.username ?? '-'}',
                             style: const TextStyle(
                               fontSize: 13,
                               color: Color(Config.textSecondary),
                             ),
                           ),
-                          if (user?['role'] == 'admin')
+                          if (user?.role == 'admin')
                             Container(
                               margin: const EdgeInsets.only(top: 6),
                               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),

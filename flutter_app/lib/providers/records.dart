@@ -58,9 +58,9 @@ class RecordsProvider extends ChangeNotifier {
     }
   }
 
-  Future<Record?> createRecord(Record record) async {
+  Future<Record?> createRecord(Map<String, dynamic> data) async {
     try {
-      final newRecord = await _api.createRecord(record);
+      final newRecord = await _api.createRecord(data);
       _records.insert(0, newRecord);
       _total++;
       notifyListeners();
@@ -72,17 +72,17 @@ class RecordsProvider extends ChangeNotifier {
     }
   }
 
-  Future<Record?> updateRecord(int id, Record record) async {
+  Future<bool> updateRecord(int id, Map<String, dynamic> data) async {
     try {
-      final updated = await _api.updateRecord(id, record);
+      final updated = await _api.updateRecord(id, data);
       final idx = _records.indexWhere((r) => r.id == id);
       if (idx >= 0) _records[idx] = updated;
       notifyListeners();
-      return updated;
+      return true;
     } on ApiException catch (e) {
       _error = e.message;
       notifyListeners();
-      return null;
+      return false;
     }
   }
 

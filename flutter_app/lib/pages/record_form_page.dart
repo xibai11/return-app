@@ -120,7 +120,8 @@ class _RecordFormPageState extends State<RecordFormPage> {
     if (widget.editId != null) {
       ok = await context.read<RecordsProvider>().updateRecord(widget.editId!, data);
     } else {
-      ok = await context.read<RecordsProvider>().createRecord(data);
+      final rec = await context.read<RecordsProvider>().createRecord(data);
+      ok = rec != null;
     }
 
     setState(() => _loading = false);

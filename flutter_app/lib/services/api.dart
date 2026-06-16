@@ -119,10 +119,10 @@ class ApiService {
     _checkResp(resp);
     final body = jsonDecode(resp.body);
     return (
-      list: (body['list'] as List).map((e) => Record.fromJson(e)).toList(),
-      total: body['total'] ?? 0,
-      page: body['page'] ?? 1,
-      pageSize: body['page_size'] ?? 50,
+      list: (body['list'] as List).map((e) => Record.fromJson(e as Map<String, dynamic>)).toList(),
+      total: (body['total'] ?? 0) as int,
+      page: (body['page'] ?? 1) as int,
+      pageSize: (body['page_size'] ?? 50) as int,
     );
   }
 
@@ -132,20 +132,21 @@ class ApiService {
     return Record.fromJson(data);
   }
 
-  // 创建记录（支持 Record 对象或 Map）
-  Future<Record> createRecord(dynamic record) async {
-    final data = record is Record
-        ? await _post('/api/records', record.toJson())
-        : await _post('/api/records', record as Map<String, dynamic>);
+  // 创建记录（接收 Record 对象）
+  Future<Record> createRecord(Record record) async {
+    final data = await _post('/api/records', record.toJson());
     return Record.fromJson(data);
   }
 
-  // 更新记录（支持 Record 对象或 Map）
-  Future<Record> updateRecord(int id, dynamic record) async {
-    final data = record is Record
-        ? await _put('/api/records/$id', record.toJson())
-        : await _put('/api/records/$id', record as Map<String, dynamic>);
-    return Record.fromJson(data);
+  // 更新记录（接收 Map）
+  Future<Record> updateRecord(int id, Map<String, dynamic> data) async {
+    final resp = await http.put(
+      Uri.parse('${Config.baseUrl}/api/records/$id'),
+      headers: _headers,
+      body: jsonEncode(data),
+    );
+    _checkResp(resp);
+    return Record.fromJson(jsonDecode(resp.body));
   }
 
   // 切换状态
