@@ -29,10 +29,6 @@ jobs:
           flutter build windows --release
         working-directory: flutter_app
 
-      - name: Verify build output
-        shell: bash
-        run: ls -la flutter_app/build/windows/runner/Release/ 2>&1 || echo "NOT FOUND"
-
       - name: Upload EXE to Release
         uses: softprops/action-gh-release@v2
         env:
@@ -42,4 +38,4 @@ jobs:
           name: Latest Windows Build
           draft: false
           prerelease: false
-          files: flutter_app/build/windows/runner/Release/**/*
+          files: flutter_app/build/windows/x64/runner/Release/**/*
