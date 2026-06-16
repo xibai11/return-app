@@ -31,4 +31,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: return-app-windows-exe
-          path: flutter_app/build/windows/runner/Release/bundle/
+          path: flutter_app/build/windows/runner/Release/
