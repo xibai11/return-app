@@ -19,19 +19,16 @@ jobs:
 
       - name: Get dependencies
         run: |
-          cd flutter_app
           flutter pub get
+        working-directory: flutter_app
 
       - name: Build Windows EXE
         run: |
-          cd flutter_app
           flutter build windows --release
-
-      - name: Debug build output
-        run: ls -laR flutter_app/build/windows/ 2>&1 || echo "Directory not found"
+        working-directory: flutter_app
 
       - name: Upload EXE
         uses: actions/upload-artifact@v4
         with:
-          name: return-app-windows-exe-v4
+          name: return-app-windows-exe-v5
           path: flutter_app/build/windows/runner/Release/
