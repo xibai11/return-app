@@ -55,22 +55,23 @@ class _RecordFormPageState extends State<RecordFormPage> {
       record = null;
     }
     if (record == null) return;
+    final r = record;
     setState(() {
-      _orderNoCtrl.text = record.orderNo ?? '';
-      _customerCtrl.text = record.customerName ?? '';
-      _phoneCtrl.text = record.customerPhone ?? '';
-      _productCtrl.text = record.productName ?? '';
-      _quantityCtrl.text = '${record.quantity ?? 1}';
-      _amountCtrl.text = '${record.refundAmount ?? 0}';
-      _reasonCtrl.text = record.refundReason ?? '';
-      _remarkCtrl.text = record.remark ?? '';
-      _status = record.status ?? 'pending';
-      _isImportant = record.isImportant == true;
-      if (record.returnDate != null) {
-        _returnDate = DateTime.parse(record.returnDate);
+      _orderNoCtrl.text = r.orderNo ?? '';
+      _customerCtrl.text = r.customerName ?? '';
+      _phoneCtrl.text = r.customerPhone ?? '';
+      _productCtrl.text = r.productName ?? '';
+      _quantityCtrl.text = '${r.quantity ?? 1}';
+      _amountCtrl.text = '${r.refundAmount ?? 0}';
+      _reasonCtrl.text = r.refundReason ?? '';
+      _remarkCtrl.text = r.remark ?? '';
+      _status = r.status ?? 'pending';
+      _isImportant = r.isImportant == true;
+      if (r.returnDate != null) {
+        _returnDate = DateTime.parse(r.returnDate!);
       }
-      if (_reasonTypes.contains(record.reasonType)) {
-        _reasonType = record.reasonType;
+      if (_reasonTypes.contains(r.reasonType)) {
+        _reasonType = r.reasonType;
       }
     });
   }
