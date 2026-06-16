@@ -67,8 +67,8 @@ class _RecordFormPageState extends State<RecordFormPage> {
       _remarkCtrl.text = r.remark ?? '';
       _status = r.status ?? 'pending';
       _isImportant = r.isImportant == true;
-      if (r.returnDate != null) {
-        _returnDate = DateTime.parse(r.returnDate!);
+      if (r.returnDate.isNotEmpty) {
+        _returnDate = DateTime.parse(r.returnDate);
       }
       if (_reasonTypes.contains(r.reasonType)) {
         _reasonType = r.reasonType;
