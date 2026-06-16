@@ -4,7 +4,7 @@ import '../services/api.dart';
 
 class RecordsProvider extends ChangeNotifier {
   final ApiService _api;
-  List<Record> _records = [];
+  List<ReturnRecord> _records = [];
   int _total = 0;
   int _page = 1;
   bool _loading = false;
@@ -15,7 +15,7 @@ class RecordsProvider extends ChangeNotifier {
 
   RecordsProvider(this._api);
 
-  List<Record> get records => _records;
+  List<ReturnRecord> get records => _records;
   int get total => _total;
   int get page => _page;
   bool get loading => _loading;
@@ -58,7 +58,7 @@ class RecordsProvider extends ChangeNotifier {
     }
   }
 
-  Future<Record?> createRecord(Map<String, dynamic> data) async {
+  Future<ReturnRecord?> createRecord(Map<String, dynamic> data) async {
     try {
       final newRecord = await _api.createRecord(data);
       _records.insert(0, newRecord);

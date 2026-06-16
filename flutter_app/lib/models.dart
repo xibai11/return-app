@@ -26,7 +26,7 @@ class User {
   bool get isAdmin => role == 'admin';
 }
 
-class Record {
+class ReturnRecord {
   final int id;
   final String orderNo;
   final String customerName;
@@ -49,7 +49,7 @@ class Record {
   final DateTime updatedAt;
   final DateTime? completedAt;
 
-  Record({
+  ReturnRecord({
     required this.id,
     required this.orderNo,
     required this.customerName,
@@ -73,8 +73,8 @@ class Record {
     this.completedAt,
   });
 
-  factory Record.fromJson(Map<String, dynamic> json) {
-    return Record(
+  factory ReturnRecord.fromJson(Map<String, dynamic> json) {
+    return ReturnRecord(
       id: json['id'] ?? 0,
       orderNo: json['order_no'] ?? '',
       customerName: json['customer_name'] ?? '',

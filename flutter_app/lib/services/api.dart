@@ -99,7 +99,7 @@ class ApiService {
   }
 
   // 获取记录列表
-  Future<({List<Record> list, int total, int page, int pageSize})> listRecords({
+  Future<({List<ReturnRecord> list, int total, int page, int pageSize})> listRecords({
     int page = 1,
     int pageSize = 50,
     String? status,
@@ -119,7 +119,7 @@ class ApiService {
     _checkResp(resp);
     final body = jsonDecode(resp.body);
     return (
-      list: (body['list'] as List).map((e) => Record.fromJson(e as Map<String, dynamic>)).toList(),
+      list: (body['list'] as List).map((e) => ReturnRecord.fromJson(e as Map<String, dynamic>)).toList(),
       total: (body['total'] ?? 0) as int,
       page: (body['page'] ?? 1) as int,
       pageSize: (body['page_size'] ?? 50) as int,
@@ -127,32 +127,32 @@ class ApiService {
   }
 
   // 获取单条记录
-  Future<Record> getRecord(int id) async {
+  Future<ReturnRecord> getRecord(int id) async {
     final data = await _get('/api/records/$id');
-    return Record.fromJson(data);
+    return ReturnRecord.fromJson(data);
   }
 
   // 创建记录（接收 Map）
-  Future<Record> createRecord(Map<String, dynamic> data) async {
+  Future<ReturnRecord> createRecord(Map<String, dynamic> data) async {
     final resp = await _post('/api/records', data);
-    return Record.fromJson(resp);
+    return ReturnRecord.fromJson(resp);
   }
 
   // 更新记录（接收 Map）
-  Future<Record> updateRecord(int id, Map<String, dynamic> data) async {
+  Future<ReturnRecord> updateRecord(int id, Map<String, dynamic> data) async {
     final resp = await http.put(
       Uri.parse('${Config.baseUrl}/api/records/$id'),
       headers: _headers,
       body: jsonEncode(data),
     );
     _checkResp(resp);
-    return Record.fromJson(jsonDecode(resp.body));
+    return ReturnRecord.fromJson(jsonDecode(resp.body));
   }
 
   // 切换状态
-  Future<Record> toggleStatus(int id, String status) async {
+  Future<ReturnRecord> toggleStatus(int id, String status) async {
     final data = await _patch('/api/records/$id/status', {'status': status});
-    return Record.fromJson(data);
+    return ReturnRecord.fromJson(data);
   }
 
   // 删除记录

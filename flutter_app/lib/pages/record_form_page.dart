@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../models.dart';
 import '../providers/auth.dart';
 import '../providers/records.dart';
 import '../config.dart';
@@ -47,10 +48,12 @@ class _RecordFormPageState extends State<RecordFormPage> {
 
   Future<void> _loadRecord() async {
     final records = context.read<RecordsProvider>().records;
-    final Record? record = records.cast<Record?>().firstWhere(
-      (r) => r?.id == widget.editId,
-      orElse: () => null,
-    );
+    ReturnRecord? record;
+    try {
+      record = records.firstWhere((r) => r.id == widget.editId);
+    } catch (_) {
+      record = null;
+    }
     if (record == null) return;
     setState(() {
       _orderNoCtrl.text = record.orderNo ?? '';
