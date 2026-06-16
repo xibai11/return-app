@@ -8,6 +8,8 @@ on:
 jobs:
   build:
     runs-on: windows-2022
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
 
@@ -31,8 +33,13 @@ jobs:
         shell: bash
         run: ls -la flutter_app/build/windows/runner/Release/ 2>&1 || echo "NOT FOUND"
 
-      - name: Upload EXE
-        uses: actions/upload-artifact@v4
+      - name: Upload EXE to Release
+        uses: softprops/action-gh-release@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: return-app-windows-exe-final
-          path: flutter_app/build/windows/
+          tag_name: latest
+          name: Latest Windows Build
+          draft: false
+          prerelease: false
+          files: flutter_app/build/windows/runner/Release/**/*
