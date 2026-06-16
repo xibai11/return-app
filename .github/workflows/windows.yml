@@ -27,8 +27,12 @@ jobs:
           flutter build windows --release
         working-directory: flutter_app
 
+      - name: Verify build output
+        shell: bash
+        run: ls -la flutter_app/build/windows/runner/Release/ 2>&1 || echo "NOT FOUND"
+
       - name: Upload EXE
         uses: actions/upload-artifact@v4
         with:
-          name: return-app-windows-exe-v5
-          path: flutter_app/build/windows/runner/Release/
+          name: return-app-windows-exe-final
+          path: flutter_app/build/windows/
